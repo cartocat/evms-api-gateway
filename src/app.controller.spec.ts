@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('EVMS API Gateway Running');
+    it('should return "Health Status!"', () => {
+      expect(appController.getStatus().message).toBe(
+        'EVMS API Gateway Running',
+      );
     });
   });
 });
