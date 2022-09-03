@@ -1,4 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -9,7 +10,6 @@ import { AppModule } from './app.module';
 import { GlobalExceptionsFilter } from './core';
 
 async function bootstrap() {
-  const port = process.env.PORT || 3000;
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({ logger: true }),
@@ -25,6 +25,6 @@ async function bootstrap() {
 
   // Security: Helmet
   app.use(helmet());
-  await app.listen(port, '0.0.0.0');
+  await app.listen(new ConfigService().get('port'), '0.0.0.0');
 }
 bootstrap();
